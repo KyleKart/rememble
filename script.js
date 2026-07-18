@@ -77,10 +77,11 @@ if (guessString.length <= 4) {
   alert("Not enough letters!");
   return;
 }
-
+  if (guessString.length <= 5) {
   if (!WORDS.includes(guessString)) {
     alert("Word not in list!");
     return;
+  }
   }
 
   guessStringGlob = guessString;
