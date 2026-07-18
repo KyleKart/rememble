@@ -266,8 +266,13 @@ document.addEventListener("keyup", (e) => {
   }
 
   if (pressedKey === "Quit") {
+    guessesRemaining = 0;
     const shareBtn = document.getElementById('share-quit-btn');
     shareBtn.classList.add('hidden');
+    const hideButtons = document.querySelectorAll('.hide-on-end');
+    hideButtons.forEach(btn => {
+      btn.classList.add('hidden');
+    });
     alert(`The right word was: "${rightGuessString}"`);
     return;
   }
