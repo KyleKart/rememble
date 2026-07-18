@@ -4,6 +4,7 @@ const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let currentPage = 1;
+let guessTotal = 1;
 let nextLetter = 0;
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
@@ -155,6 +156,7 @@ function checkGuess() {
     if (counter) {
         counter.textContent = `Page ${currentPage}`;
     }
+        guessTotal += NUMBER_OF_GUESSES;
         guessesRemaining = NUMBER_OF_GUESSES;
         currentGuess = [];
         nextLetter = 0;
@@ -227,7 +229,7 @@ function getShareText() {
     }
 
     return `Rememble ∞${id}
-Page 3/3 - ${rowsToProcess} Guesses
+Page ${currentPage} - ${rowsToProcess} Guesses
 ${gridEmoji}
 https://kylekart.github.io/rememble/?id=${id}`;
 }
