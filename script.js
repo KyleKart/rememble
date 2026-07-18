@@ -264,6 +264,9 @@ document.addEventListener("keyup", (e) => {
 
   if (pressedKey === "Quit") {
     guessString = rightGuessString;
+    checkGuess();
+    const shareBtn = document.getElementById('share-quit-btn');
+    shareBtn.classList.add('hidden');
     alert(`The right word was: "${rightGuessString}"`);
     return;
   }
