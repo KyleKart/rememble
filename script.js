@@ -229,7 +229,10 @@ https://kylekart.github.io/rememble/?id=${id}`;
 }
 
 document.addEventListener("keyup", (e) => {
-    if (pressedKey === "Share") {
+
+    let pressedKey = String(e.key);
+
+  if (pressedKey === "Share") {
     const text = getShareText();
     navigator.clipboard.writeText(text).then(() => {
       alert("Copied to clipboard!");
@@ -241,7 +244,6 @@ document.addEventListener("keyup", (e) => {
     return;
   }
 
-  let pressedKey = String(e.key);
   if (pressedKey === "Backspace" && nextLetter !== 0) {
     deleteLetter();
     return;
