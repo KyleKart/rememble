@@ -73,7 +73,7 @@ function checkGuess() {
     guessString += val;
   }
 
-if (guessArray.length <= 4) {
+if (guessString.length <= 4) {
   alert("Not enough letters!");
   return;
 }
