@@ -3,6 +3,7 @@ import { WORDS } from "./words.js";
 const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
+let currentPage = 1;
 let nextLetter = 0;
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
@@ -149,6 +150,11 @@ function checkGuess() {
 
     if (guessesRemaining === 0) {
       setTimeout(() => {
+        currentPage++;
+    const counter = document.getElementById("page-counter");
+    if (counter) {
+        counter.textContent = `Page ${currentPage}`;
+    }
         guessesRemaining = NUMBER_OF_GUESSES;
         currentGuess = [];
         nextLetter = 0;
@@ -205,25 +211,23 @@ const animateCSS = (element, animation, prefix = "animate__") =>
   });
 
 function getShareText() {
-  const rows = document.getElementsByClassName("letter-row");
-  let gridEmoji = "";
+    const rows = document.getElementsByClassName("letter-row");
+    let gridEmoji = "";
 
-  for (let i = 0; i < rows.length; i++) {
-    let rowHasLetters = false;
-    for (let box of rows[i].children) {
-      const color = box.style.backgroundColor;
-      if (color === "green") gridEmoji += "🟩";
-      else if (color === "yellow") gridEmoji += "🟨";
-      else if (color === "gray") gridEmoji += "⬛";
-      else gridEmoji += "⬜";
+    const rowsToProcess = 6 - guessesRemaining; 
 
-      if (box.textContent !== "") rowHasLetters = true;
+    for (let i = 0; i < rowsToProcess; i++) {
+        for (let box of rows[i].children) {
+            const color = box.style.backgroundColor;
+            if (color === "green") gridEmoji += "🟩";
+            else if (color === "yellow") gridEmoji += "🟨";
+            else if (color === "gray") gridEmoji += "⬛";
+        }
+        gridEmoji += "\n";
     }
-    if (rowHasLetters) gridEmoji += "\n";
-  }
 
-  return `Rememble ∞${id}
-Page 3/3 - ${6 - guessesRemaining} Guesses
+    return `Rememble ∞${id}
+Page 3/3 - ${rowsToProcess} Guesses
 ${gridEmoji}
 https://kylekart.github.io/rememble/?id=${id}`;
 }
