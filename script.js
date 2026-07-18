@@ -229,6 +229,14 @@ https://kylekart.github.io/rememble/?id=${id}`;
 }
 
 document.addEventListener("keyup", (e) => {
+    if (pressedKey === "Share") {
+    const text = getShareText();
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Copied to clipboard!");
+    });
+    return;
+  }
+
   if (guessesRemaining === 0) {
     return;
   }
@@ -246,14 +254,6 @@ document.addEventListener("keyup", (e) => {
 
   if (pressedKey === "Quit") {
     alert(`The right word was: "${rightGuessString}"`);
-    return;
-  }
-
-  if (pressedKey === "Share") {
-    const text = getShareText();
-    navigator.clipboard.writeText(text).then(() => {
-      alert("Copied to clipboard!");
-    });
     return;
   }
 
