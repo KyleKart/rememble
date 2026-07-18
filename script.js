@@ -10,11 +10,11 @@ const id = params.get('id');
 let rightGuessString;
 
 if (id !== null && id < WORDS.length) {
-    rightGuessString = WORDS[id];
+  rightGuessString = WORDS[id];
 } else {
-    let randomIndex = Math.floor(Math.random() * WORDS.length);
-    rightGuessString = WORDS[randomIndex];
-    window.history.replaceState(null, null, `?id=${randomIndex}`);
+  let randomIndex = Math.floor(Math.random() * WORDS.length);
+  rightGuessString = WORDS[randomIndex];
+  window.history.replaceState(null, null, `?id=${randomIndex}`);
 }
 console.log(rightGuessString);
 
@@ -117,17 +117,23 @@ function checkGuess() {
 
       box.style.backgroundColor = color;
 
-const isExactMatch = guessString === rightGuessString;
+      const isExactMatch = guessString === rightGuessString;
 
-if (isExactMatch) {
-  box.textContent = letter;
-} else {
-  if (color === "gray") {
-    box.textContent = letter;
-  } else {
-    box.textContent = "";
-  }
-}
+      if (isExactMatch) {
+        box.textContent = letter;
+        const hideButtons = document.querySelectorAll('.hide-on-end');
+        hideButtons.forEach(btn => {
+          btn.classList.add('hidden');
+        });
+        const shareBtn = document.getElementById('share-quit-btn');
+        shareBtn.textContent = "Share";
+      } else {
+        if (color === "gray") {
+          box.textContent = letter;
+        } else {
+          box.textContent = "";
+        }
+      }
 
       shadeKeyBoard(letter, color);
     }, delay);
@@ -142,26 +148,26 @@ if (isExactMatch) {
     nextLetter = 0;
 
     if (guessesRemaining === 0) {
-        setTimeout(() => {          
-  guessesRemaining = NUMBER_OF_GUESSES;
-  currentGuess = [];
-  nextLetter = 0;
+      setTimeout(() => {
+        guessesRemaining = NUMBER_OF_GUESSES;
+        currentGuess = [];
+        nextLetter = 0;
 
-  const rows = document.getElementsByClassName("letter-row");
+        const rows = document.getElementsByClassName("letter-row");
 
-  for (let row of rows) {
-    for (let box of row.children) {
-      box.textContent = "";
-      box.style.backgroundColor = "";
-      box.classList.remove("filled-box");
+        for (let row of rows) {
+          for (let box of row.children) {
+            box.textContent = "";
+            box.style.backgroundColor = "";
+            box.classList.remove("filled-box");
+          }
+        }
+
+        for (const key of document.getElementsByClassName("keyboard-button")) {
+          key.style.backgroundColor = "";
+        }
+      }, 1800);
     }
-  }
-
-  for (const key of document.getElementsByClassName("keyboard-button")) {
-    key.style.backgroundColor = "";
-  }
-          }, 1800);
-}
   }
 }
 
@@ -198,6 +204,30 @@ const animateCSS = (element, animation, prefix = "animate__") =>
     node.addEventListener("animationend", handleAnimationEnd, { once: true });
   });
 
+function getShareText() {
+  const rows = document.getElementsByClassName("letter-row");
+  let gridEmoji = "";
+
+  for (let i = 0; i < rows.length; i++) {
+    let rowHasLetters = false;
+    for (let box of rows[i].children) {
+      const color = box.style.backgroundColor;
+      if (color === "green") gridEmoji += "🟩";
+      else if (color === "yellow") gridEmoji += "🟨";
+      else if (color === "gray") gridEmoji += "⬛";
+      else gridEmoji += "⬜";
+
+      if (box.textContent !== "") rowHasLetters = true;
+    }
+    if (rowHasLetters) gridEmoji += "\n";
+  }
+
+  return `Rememble ∞${id}
+Page 3/3 - ${6 - guessesRemaining} Guesses
+${gridEmoji}
+https://kylekart.github.io/rememble/?id=${id}`;
+}
+
 document.addEventListener("keyup", (e) => {
   if (guessesRemaining === 0) {
     return;
@@ -216,6 +246,14 @@ document.addEventListener("keyup", (e) => {
 
   if (pressedKey === "Quit") {
     alert(`The right word was: "${rightGuessString}"`);
+    return;
+  }
+
+  if (pressedKey === "Share") {
+    const text = getShareText();
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Copied to clipboard!");
+    });
     return;
   }
 
