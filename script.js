@@ -158,7 +158,7 @@ function checkGuess() {
         currentPage++;
     const counter = document.getElementById("page-counter");
     if (counter) {
-        counter.textContent = `Page ${currentPage}`;
+        counter.textContent = `Board ${currentPage}`;
     }
         guessesRemaining = NUMBER_OF_GUESSES;
         currentGuess = [];
@@ -232,7 +232,8 @@ function getShareText() {
     }
 
     return `Rememble ∞${id}
-Page ${currentPage} - ${guessTotal - 1} Total Guesses
+${guessTotal - 1} Total Guesses
+Board ${currentPage} - ${rowsToProcess} Guesses
 ${gridEmoji}
 https://kylekart.github.io/rememble/?id=${id}`;
 }
