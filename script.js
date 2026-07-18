@@ -73,10 +73,10 @@ function checkGuess() {
     guessString += val;
   }
 
-  if (guessString.length != 5) {
-    alert("Not enough letters!");
-    return;
-  }
+if (guessArray.length <= 4) {
+  alert("Not enough letters!");
+  return;
+}
 
   if (!WORDS.includes(guessString)) {
     alert("Word not in list!");
