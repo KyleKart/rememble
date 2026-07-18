@@ -83,6 +83,8 @@ function checkGuess() {
     return;
   }
 
+  guessTotal++;
+
   var letterColor = ["gray", "gray", "gray", "gray", "gray"];
 
   // check green
@@ -156,7 +158,6 @@ function checkGuess() {
     if (counter) {
         counter.textContent = `Page ${currentPage}`;
     }
-        guessTotal += NUMBER_OF_GUESSES;
         guessesRemaining = NUMBER_OF_GUESSES;
         currentGuess = [];
         nextLetter = 0;
@@ -229,7 +230,7 @@ function getShareText() {
     }
 
     return `Rememble ∞${id}
-Page ${currentPage} - ${rowsToProcess} Guesses
+Page ${currentPage} - ${guessTotal} Total Guesses
 ${gridEmoji}
 https://kylekart.github.io/rememble/?id=${id}`;
 }
