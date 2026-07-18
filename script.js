@@ -17,7 +17,6 @@ if (id !== null && id < WORDS.length) {
 } else {
   let randomIndex = Math.floor(Math.random() * WORDS.length);
   rightGuessString = WORDS[randomIndex];
-  window.history.replaceState(null, null, `?id=${randomIndex}`);
   id = randomIndex;
 }
 
