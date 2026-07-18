@@ -20,7 +20,6 @@ if (id !== null && id < WORDS.length) {
   window.history.replaceState(null, null, `?id=${randomIndex}`);
   id = randomIndex;
 }
-console.log(rightGuessString);
 
 function initBoard() {
   let board = document.getElementById("game-board");
