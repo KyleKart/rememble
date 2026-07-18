@@ -263,6 +263,7 @@ document.addEventListener("keyup", (e) => {
   }
 
   if (pressedKey === "Quit") {
+    guessString = rightGuessString;
     alert(`The right word was: "${rightGuessString}"`);
     return;
   }
