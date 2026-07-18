@@ -233,7 +233,7 @@ function getShareText() {
 
     return `Rememble ∞${id}
 ${guessTotal - 1} Total Guesses
-Board ${currentPage} - ${rowsToProcess} Guesses
+Board ${currentPage} - ${rowsToProcess - 1} Guesses
 ${gridEmoji}
 https://kylekart.github.io/rememble/?id=${id}`;
 }
