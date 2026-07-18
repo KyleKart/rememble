@@ -7,7 +7,7 @@ let currentPage = 1;
 let guessTotal = 1;
 let nextLetter = 0;
 const params = new URLSearchParams(window.location.search);
-const id = params.get('id');
+let id = params.get('id');
 
 let rightGuessString;
 
@@ -17,6 +17,7 @@ if (id !== null && id < WORDS.length) {
   let randomIndex = Math.floor(Math.random() * WORDS.length);
   rightGuessString = WORDS[randomIndex];
   window.history.replaceState(null, null, `?id=${randomIndex}`);
+  id = randomIndex;
 }
 console.log(rightGuessString);
 
