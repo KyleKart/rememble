@@ -4,8 +4,18 @@ const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
-let rightGuessString = WORDS[Math.floor(Math.random() * WORDS.length)];
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
 
+let rightGuessString;
+
+if (id !== null && id < WORDS.length) {
+    rightGuessString = WORDS[id];
+} else {
+    let randomIndex = Math.floor(Math.random() * WORDS.length);
+    rightGuessString = WORDS[randomIndex];
+    window.history.replaceState(null, null, `?id=${randomIndex}`);
+}
 console.log(rightGuessString);
 
 function initBoard() {
