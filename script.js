@@ -5,7 +5,7 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let currentPage = 1;
 let guessTotal = 1;
-let guessString = "";
+let guessStringGlob = "";
 let nextLetter = 0;
 const params = new URLSearchParams(window.location.search);
 let id = params.get('id');
@@ -68,6 +68,7 @@ function deleteLetter() {
 
 function checkGuess() {
   let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
+  let guessString = "";
   let rightGuess = Array.from(rightGuessString);
 
   for (const val of currentGuess) {
@@ -83,6 +84,8 @@ function checkGuess() {
     alert("Word not in list!");
     return;
   }
+
+  guessStringGlob = guessString;
 
   guessTotal++;
 
@@ -263,8 +266,6 @@ document.addEventListener("keyup", (e) => {
   }
 
   if (pressedKey === "Quit") {
-    guessString = rightGuessString;
-    checkGuess();
     const shareBtn = document.getElementById('share-quit-btn');
     shareBtn.classList.add('hidden');
     alert(`The right word was: "${rightGuessString}"`);
