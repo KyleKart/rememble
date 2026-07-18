@@ -73,17 +73,14 @@ function checkGuess() {
     guessString += val;
   }
 
-if (guessString.length <= 4) {
+if (guessString.length != 5) {
   alert("Not enough letters!");
   return;
 }
-  if (guessString.length <= 5) {
   if (!WORDS.includes(guessString)) {
     alert("Word not in list!");
     return;
   }
-  }
-
   guessStringGlob = guessString;
 
   guessTotal++;
@@ -277,7 +274,7 @@ document.addEventListener("keyup", (e) => {
     return;
   }
 
-  let found = pressedKey.match(/[a-z]/gi);
+  let found = pressedKey.match(/^[a-z]$/i);
   if (!found || found.length > 1) {
     return;
   } else {
